@@ -1,5 +1,8 @@
 <?php
     require "./includes/db.php";
+    require "./includes/auth.php";
+
+    session_start();
 
     $conn = getDB();
 
@@ -16,6 +19,13 @@
 
 
 <?php require "./includes/header.php"; ?>
+
+<?php if(isLoggedIn()): ?>
+  <a href="logout.php">Logout</a>
+<?php else: ?>
+  <a href="login.php">Login</a>
+<?php endif; ?>
+
 
 <?php if(empty($articles)): ?>
   <div class="alert alert-warning">No articles found.</div>
