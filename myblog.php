@@ -1,20 +1,14 @@
 <?php
-    require "./includes/db.php";
+    require "./class/Database.php";
+    require "./class/Article.php";
     require "./includes/auth.php";
 
     session_start();
 
-    $conn = getDB();
+    $db = new Database();
+    $conn = $db->getConn();
 
-    $sql = "SELECT * FROM blogs";
-
-    $result = mysqli_query($conn, $sql);
-    if($result){
-        $articles = mysqli_fetch_all($result, MYSQLI_ASSOC);
-    }
-    else{
-        print mysqli_error($conn);
-    }
+    $articles = Article::getAll($conn);
 ?>
 
 
@@ -36,7 +30,7 @@
         <div class="card article-card h-100 shadow-sm border-0">
             <div class="card-header">
                 <h5 class="card-title">
-                    <a href="./article.php?id=<?= $article["id"]; ?>" class="text-decoration-none text-dark fw-bold">
+                    <a href="./article.php?id=<?= $article["Id"]; ?>" class="text-decoration-none text-dark fw-bold">
                         <?= htmlspecialchars($article["Title"]); ?>
                     </a>
                 </h5>
@@ -47,9 +41,9 @@
                 </p>
             </div>
             <div class="card-footer bg-white border-0">
-                <a href="./article.php?id=<?= $article["id"]; ?>" class="btn btn-sm btn-one">Đọc tiếp</a>
-                <a href="./edit_article.php?id=<?= $article["id"]; ?>" class="btn btn-sm btn-one">Chỉnh sửa</a>
-                <form action="./delete_article.php?id=<?= $article["id"]; ?>" class="form-group" method="post">
+                <a href="./article.php?id=<?= $article["Id"]; ?>" class="btn btn-sm btn-one">Đọc tiếp</a>
+                <a href="./edit_article.php?id=<?= $article["Id"]; ?>" class="btn btn-sm btn-one">Chỉnh sửa</a>
+                <form action="./delete_article.php?id=<?= $article["Id"]; ?>" class="form-group" method="post">
                   <button type="button" class="btn btn-sm btn-one delete-btn">Xóa</button>
                 </form>
             </div>

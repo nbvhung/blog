@@ -1,7 +1,7 @@
-<?php if (!empty($errors)): ?>
+<?php if (!empty($article->errors)): ?>
 <div class="alert alert-danger">
     <ul class="mb-0">
-        <?php foreach ($errors as $err): ?>
+        <?php foreach ($article->errors as $err): ?>
             <li><?= htmlspecialchars($err); ?></li>
         <?php endforeach; ?>
     </ul>
@@ -23,7 +23,7 @@
                 class="form-control" 
                 id="title" 
                 name="Title" 
-                value="<?= htmlspecialchars($title); ?>" 
+                value="<?= htmlspecialchars($article->Title); ?>" 
                 placeholder="Article Title" 
                 required>
             </div>
@@ -37,7 +37,7 @@
                 name="Content" 
                 rows="6" 
                 placeholder="Article Content" 
-                required><?= htmlspecialchars($content); ?></textarea>
+                required><?= htmlspecialchars($article->Content); ?></textarea>
             </div>
 
             
@@ -48,7 +48,7 @@
                 class="form-control" 
                 id="published_at" 
                 name="Published_at" 
-                value="<?= htmlspecialchars($published_at); ?>">
+                value="<?= htmlspecialchars($article->Published_at); ?>">
             </div>
 
             <div class="card-footer d-flex justify-content-end">
