@@ -1,13 +1,11 @@
 <?php 
     require "./class/Database.php";
     require "./class/Article.php";
-    require "./includes/auth.php";
+    require "./class/Auth.php";
 
     session_start();
 
-    if(!isLoggedIn()){
-        die("Unauthorised");
-    }
+    Auth::requireLogin();
 
     $article = new Article();
 
@@ -16,8 +14,7 @@
         $article->Content = $_POST["Content"];
         $article->Published_at = $_POST["Published_at"];
 
-        $db = new Database();
-        $conn = $db->getConn();
+        $conn = require "./includes/db.php";
 
         if($article->create($conn)){
             header("Location: myblog.php");

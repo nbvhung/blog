@@ -1,12 +1,11 @@
 <?php
     require "./class/Database.php";
     require "./class/Article.php";
-    require "./includes/auth.php";
+    require "./class/Auth.php";
 
     session_start();
 
-    $db = new Database();
-    $conn = $db->getConn();
+    $conn = require "./includes/db.php";
 
     $articles = Article::getAll($conn);
 ?>
@@ -14,7 +13,7 @@
 
 <?php require "./includes/header.php"; ?>
 
-<?php if(isLoggedIn()): ?>
+<?php if(Auth::isLoggedIn()): ?>
   <a href="logout.php">Logout</a>
 <?php else: ?>
   <a href="login.php">Login</a>

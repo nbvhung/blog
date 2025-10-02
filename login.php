@@ -1,16 +1,22 @@
 <?php
+    require "./class/User.php";
+    require "./class/Database.php";
+    require "./class/Auth.php";
+
     session_start();
 
     // $_SESSION['logged_in'] = true;
 
     if($_SERVER["REQUEST_METHOD"] == "POST"){
-        if($_POST["username"] == "nbvhung" && $_POST["password"]){
-            session_regenerate_id(true); // tao secssion moi khi login tranh xss
-            $_SESSION['logged_in'] = true;
+
+        $conn = require "./includes/db.php";
+
+        if(User::authenticate($conn, $_POST["username"], $_POST["password"])){
+            Auth::login();
             header("Location: myblog.php");
         }
         else{
-            $error = "Loggin incorrect";
+            $error = "Login incorrect";
         }
     }
 ?>
@@ -46,7 +52,7 @@
                     <div class="mb-3">
                         <label for="password" class="form-label">Password</label>
                         <input 
-                            type="text" 
+                            type="password" 
                             class="form-control" 
                             id="password" 
                             name="password"  

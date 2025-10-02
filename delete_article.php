@@ -2,8 +2,7 @@
     require "./class/Database.php";
     require "./class/Article.php";
 
-    $db = new Database();
-    $conn = $db->getConn();
+    $conn = require "./includes/db.php";
 
     if(isset($_GET["id"])){
         $article = Article::getById($conn, $_GET["id"]);
