@@ -1,6 +1,5 @@
 <?php
-    require "./class/Database.php";
-    require "./class/Article.php";
+    require "./includes/init.php";
 
     $conn = require "./includes/db.php";
 
@@ -21,7 +20,7 @@
         $article->Published_at = $_POST["Published_at"];
 
         if($article->update($conn)){
-            header("Location: myblog.php");
+            header("Location: index.php");
             exit;
         }
     }

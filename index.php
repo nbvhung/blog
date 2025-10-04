@@ -1,13 +1,19 @@
 <?php
-    require "./class/Database.php";
-    require "./class/Article.php";
-    require "./class/Auth.php";
-
-    session_start();
+    require "./includes/init.php";
 
     $conn = require "./includes/db.php";
 
-    $articles = Article::getAll($conn);
+    $page = isset($_GET["page"]) ? $_GET["page"] : 1;
+    // $page = $_GET["page"] ?? 1;
+    $article = 6;
+
+    $total_articles = Article::getTotal($conn);
+
+    $paging = new Paging($page, $article, $total_articles);
+
+    $total_pages = ceil($total_articles / $paging->limit);
+
+    $articles = Article::getPage($conn, $paging->limit, $paging->offset);
 ?>
 
 
@@ -59,6 +65,33 @@
         </div>
       </div>
     </div>
+
+    <nav aria-label="Page navigation">
+      <ul class="pagination justify-content-center mt-4">
+
+        <!-- Previous -->
+        <?php if ($page > 1): ?>
+          <li class="page-item">
+            <a class="page-link" href="?page=<?= $paging->previous ?>">Previous</a>
+          </li>
+        <?php endif; ?>
+
+        <!-- Các số trang -->
+        <?php for ($i = 1; $i <= $total_pages; $i++): ?>
+          <li class="page-item <?= ($i == $page) ? 'active' : '' ?>">
+            <a class="page-link" href="?page=<?= $i ?>"><?= $i ?></a>
+          </li>
+        <?php endfor; ?>
+
+        <!-- Next -->
+        <?php if ($page < $total_pages): ?>
+          <li class="page-item">
+            <a class="page-link" href="?page=<?= $paging->next ?>">Next</a>
+          </li>
+        <?php endif; ?>
+
+      </ul>
+    </nav>
 
   </div>
 <?php endif ?>

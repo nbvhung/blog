@@ -1,9 +1,5 @@
 <?php 
-    require "./class/Database.php";
-    require "./class/Article.php";
-    require "./class/Auth.php";
-
-    session_start();
+    require "./includes/init.php";
 
     Auth::requireLogin();
 
@@ -17,7 +13,7 @@
         $conn = require "./includes/db.php";
 
         if($article->create($conn)){
-            header("Location: myblog.php");
+            header("Location: index.php");
             exit;
         }
     }

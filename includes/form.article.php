@@ -53,7 +53,7 @@
 
             <div class="card-footer d-flex justify-content-end">
               <button type="submit" class="btn-one me-2">Save</button>
-              <a href="myblog.php" class="btn-two">Cancel</a>
+              <a href="index.php" class="btn-two">Cancel</a>
             </div>
           </form>
           

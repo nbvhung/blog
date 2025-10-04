@@ -1,9 +1,5 @@
 <?php
-    require "./class/User.php";
-    require "./class/Database.php";
-    require "./class/Auth.php";
-
-    session_start();
+    require "./includes/init.php";
 
     // $_SESSION['logged_in'] = true;
 
@@ -13,7 +9,7 @@
 
         if(User::authenticate($conn, $_POST["username"], $_POST["password"])){
             Auth::login();
-            header("Location: myblog.php");
+            header("Location: index.php");
         }
         else{
             $error = "Login incorrect";
@@ -62,7 +58,7 @@
                     
                     <div class="card-footer d-flex justify-content-end">
                         <button type="submit" class="btn-one me-2">Login</button>
-                        <a href="myblog.php" class="btn-two">Cancel</a>
+                        <a href="index.php" class="btn-two">Cancel</a>
                     </div>
                 </form>
             </div>

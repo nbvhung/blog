@@ -1,6 +1,5 @@
 <?php
-    require "./class/Database.php";
-    require "./class/Article.php";
+    require "./includes/init.php";
 
     $conn = require "./includes/db.php";
 
@@ -18,7 +17,7 @@
     if($_SERVER["REQUEST_METHOD"] == "POST"){
 
         if($article->delete($conn)){
-            header("Location: myblog.php");
+            header("Location: index.php");
             exit;
         }
     }

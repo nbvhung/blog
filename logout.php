@@ -1,11 +1,9 @@
 <?php
-    require "./class/Auth.php";
-
-    session_start();
+    require "./includes/init.php";
 
     // $_SESSION['logged_in'] = false;
     
     Auth::logout();
 
-    header("Location: myblog.php");
+    header("Location: index.php");
 ?>

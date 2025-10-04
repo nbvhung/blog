@@ -33,6 +33,31 @@ class Article {
         }
     }
 
+    /**
+    * Get a page of article
+    *   @param object $conn Connection to DB
+    *   @param int $limit number article to return
+    *   @return int $offset number of article to skip
+    *   @return array An associative array of a page of article
+    */
+    public static function getPage($conn, $limit, $offset){
+        $sql = "SELECT *
+                FROM blogs
+                ORDER BY Published_at
+                LIMIT :limit
+                OFFSET :offset;";
+        
+        $stmt = $conn->prepare($sql);
+
+        $stmt->bindValue(":limit", $limit, PDO::PARAM_INT);
+        $stmt->bindValue(":offset", $offset, PDO::PARAM_INT);
+    
+        $stmt->execute();
+
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+
     public function update($conn) {
         if($this->validate()){
             $sql = "UPDATE blogs 
@@ -101,6 +126,17 @@ class Article {
         else{
             return false;
         }
+    }
+
+    /**
+     * Get a count of total number of articles
+     * 
+     * @param object $conn Connection to DB
+     * 
+     * @return integer total number of articles
+     */
+    public static function getTotal($conn) {
+        return $conn->query("SELECT COUNT(*) FROM blogs")->fetchColumn();
     }
 
 }
